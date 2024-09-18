@@ -12,7 +12,7 @@ export default function Sidebar() {
         <li>Hehe</li>
         <li>Home</li>
         <li>Today</li>
-        <li>Don't</li>
+        <li>Dont</li>
       </ul>
     </aside>
   )
