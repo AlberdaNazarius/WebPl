@@ -5,9 +5,9 @@ export default function Header() {
     <header className="m-0 px-4 py-4">
       <div className="flex justify-between items-center">
         <Link href={'/'}>
-          <h2 className="text-lg">
+          <h5 className="text-lg">
             Steaming service
-          </h2>
+          </h5>
         </Link>
 
         <form role="search">
