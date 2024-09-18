@@ -1,7 +1,3 @@
-function SignUp () {
-  return(
-      ''
-  )
+export default function SignUp() {
+  return '';
 }
-
-export default SignUp;
