@@ -29,7 +29,9 @@ export default function RootLayout({
     >
     <Header />
     <Sidebar />
-    {children}
+    <main className="global-padding">
+      {children}
+    </main>
     </body>
     </html>
   );

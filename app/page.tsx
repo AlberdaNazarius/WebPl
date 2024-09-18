@@ -1,3 +1,9 @@
+import PlaylistCard from '@/components/playlist/playlist-card/PlaylistCard';
+
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <PlaylistCard />
+    </div>
+  );
 }
