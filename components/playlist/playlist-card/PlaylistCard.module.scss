@@ -1,13 +1,10 @@
-.page-link {
-  &:hover {
-    div {
-      background-color: $dark-grey-color;
-    }
-  }
-}
-
 .card {
-  border-color: $dark-grey-color;
+  border: solid 2px $dark-grey-color;
+
+  &:hover {
+    background-color: $card-hover-color;
+    opacity: 0.9;
+  }
 }
 
 .image {

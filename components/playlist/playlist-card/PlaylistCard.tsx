@@ -17,7 +17,7 @@ export default function PlaylistCard() {
 
   return (
     <div className={clsx(styles.card, 'card m-4 bg-black text-white w-fit')}>
-      <Link className={styles.pageLink} href="">
+      <Link href="">
         <Image src="/images/Image.jpg"
                width={IMAGE_SIZE}
                height={IMAGE_SIZE}
