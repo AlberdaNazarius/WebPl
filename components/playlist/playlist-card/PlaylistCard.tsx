@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './PlaylistCard.module.scss'
 import clsx from 'clsx'
+import { Routes } from '@/helpers/routes';
 
 // type props = {
 //
@@ -9,15 +10,16 @@ import clsx from 'clsx'
 
 export default function PlaylistCard() {
   const PLAYLIST = {
+    id: 1,
     name: 'Playlist',
-    metadata: '...',
+    metadata: '5 min',
   };
 
   const IMAGE_SIZE: number = 222;
 
   return (
     <div className={clsx(styles.card, 'card m-4 bg-black text-white w-fit')}>
-      <Link href="">
+      <Link href={`${Routes.Playlist}/${PLAYLIST.id}`}>
         <Image src="/images/Image.jpg"
                width={IMAGE_SIZE}
                height={IMAGE_SIZE}

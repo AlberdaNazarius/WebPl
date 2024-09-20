@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { Routes } from '@/helpers/routes';
 
 export default function Header() {
   return (
     <header className="m-0 px-4 py-4 bg-[#0a0a0a] fixed top-0 left-0 right-0 h-[3.75rem] z-10">
       <div className="flex justify-between items-center">
-        <Link href={'/'}>
+        <Link href={Routes.Home}>
           <h5 className="text-lg">
             Steaming service
           </h5>
@@ -19,8 +20,8 @@ export default function Header() {
 
         <div>
           <ul className="flex gap-2">
-            <li><Link href={'/signup'}>Sign up</Link></li>
-            <li><Link href={'/login'}>Log in</Link></li>
+            <li><Link href={Routes.Signup}>Sign up</Link></li>
+            <li><Link href={Routes.Login}>Log in</Link></li>
           </ul>
         </div>
       </div>
