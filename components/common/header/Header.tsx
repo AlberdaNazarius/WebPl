@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Routes } from '@/helpers/routes';
+import styles from './Header.module.scss'
+import clsx from 'clsx';
 
 export default function Header() {
   return (
@@ -19,7 +21,7 @@ export default function Header() {
         {/*</form>*/}
 
         <div>
-          <ul className="flex gap-2">
+          <ul className={clsx(styles.authNav, 'flex gap-2')}>
             <li><Link href={Routes.Signup}>Sign up</Link></li>
             <li><Link href={Routes.Login}>Log in</Link></li>
           </ul>

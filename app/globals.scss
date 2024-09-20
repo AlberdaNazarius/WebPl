@@ -2,13 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.main-background {
+  background-color: $black-color;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: $black-color;
 }
 
 .global-padding {
-  padding-left: 7rem;
-  padding-top: 3.75rem;
+  margin-left: 8rem;
+  margin-top: 3.75rem;
+  margin-right: 0.5rem;
+}
+
+.main-style {
+  background-color: $theme-color;
+  border-radius: 0.5rem;
 }
 
 @layer utilities {

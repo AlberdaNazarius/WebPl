@@ -9,7 +9,7 @@ export default function Playlist() {
 
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center pl-4">
       <div className="container my-4">
         <div className="flex flex-row mb-4 relative">
           <Image width={232} height={174}
