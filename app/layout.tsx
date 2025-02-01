@@ -21,16 +21,13 @@ export default function RootLayout(
   }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en" className="main-background">
-    <body
-      suppressHydrationWarning={true}
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-    >
-    <Header />
-    <Sidebar />
-    <main className="global-padding main-style">
-      {children}
-    </main>
-    </body>
+      <body
+        suppressHydrationWarning={true}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
