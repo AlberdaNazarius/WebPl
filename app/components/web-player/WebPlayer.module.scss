@@ -1,0 +1,10 @@
+.webPlayer {
+  position: fixed;
+  overflow: hidden;
+  height: 100px;
+  z-index: 100;
+  background-color: $player-bg-color;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

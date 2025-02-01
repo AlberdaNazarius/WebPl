@@ -1,8 +1,9 @@
 import styles from './Sidebar.module.scss';
 import clsx from 'clsx';
-import { PLAYLISTS, SIDEBAR_TITLE } from '@/app/helpers/constants';
+import { SIDEBAR_TITLE } from '@/app/helpers/constants';
 import { Routes } from '@/app/helpers/routes';
 import Link from 'next/link';
+import { PLAYLISTS } from '@/app/helpers/data';
 
 export default function Sidebar() {
   return (

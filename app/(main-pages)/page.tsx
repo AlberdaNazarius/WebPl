@@ -1,5 +1,5 @@
 import PlaylistCard from '@/app/components/playlist/playlist-card/PlaylistCard';
-import { PLAYLISTS } from '@/app/helpers/constants';
+import { PLAYLISTS } from '@/app/helpers/data';
 
 export default function Home() {
   return (

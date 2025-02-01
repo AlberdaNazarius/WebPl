@@ -1,10 +1,11 @@
 'use client';
 import Image from 'next/image';
-import { PLAYLIST_TABLE_HEADERS, PLAYLISTS, SONGS } from '@/app/helpers/constants';
+import { PLAYLIST_TABLE_HEADERS } from '@/app/helpers/constants';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Playlist } from '@/app/models/Playlist';
 import SongItem from '@/app/components/song/song-item/SongItem';
+import { PLAYLISTS, SONGS } from '@/app/helpers/data';
 
 export default function PlaylistPage() {
   const {playlistId} = useParams();
