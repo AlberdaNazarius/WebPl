@@ -1,6 +1,6 @@
 import Layout from '@/app/(auth)/layout';
 import React from 'react';
-import styles from './Signup.module.scss'
+import styles from '../Auth.module.scss'
 
 const SignUP = () => {
   return (
@@ -13,7 +13,7 @@ const SignUP = () => {
           <input className="input input-bordered w-full max-h-8" placeholder="Password" />
           <input className="input input-bordered w-full max-h-8" placeholder="Repeat password" />
         </div>
-        <button className={styles.signUpBtn}>
+        <button className={styles.authBtn}>
           Sign Up
         </button>
       </div>
