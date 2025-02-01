@@ -1,0 +1,14 @@
+.signUpBtn {
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+    background-color: #1a3c59;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+        background-color: #315273;
+    }
+}
