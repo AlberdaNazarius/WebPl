@@ -4,7 +4,7 @@ import { PLAYLIST_TABLE_HEADERS, PLAYLISTS, SONGS } from '@/app/helpers/constant
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Playlist } from '@/app/models/Playlist';
-import SongItem from '@/components/song/SongItem';
+import SongItem from '@/app/components/song/SongItem';
 
 export default function PlaylistPage() {
   const {playlistId} = useParams();
