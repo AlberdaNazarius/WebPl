@@ -1,6 +1,11 @@
 .songItem {
-  background-color: $active-color;
+  background-color: $inactive-color;
   color: $white-color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $song-hover-color;
+  }
 
   th {
     padding: 0.5rem 0;

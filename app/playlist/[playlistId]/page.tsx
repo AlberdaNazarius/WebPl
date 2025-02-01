@@ -4,10 +4,9 @@ import { PLAYLIST, PLAYLIST_TABLE_HEADERS, SONGS } from '@/helpers/constants';
 import styles from './Playlist.module.scss';
 
 export default function Playlist() {
-
   return (
     <div className="flex justify-center pl-4 main-container">
-      <div className="container my-4">
+      <div className="container mt-6 mb-4">
         <div className="flex flex-row mb-4 relative">
           <Image width={232}
                  height={174}

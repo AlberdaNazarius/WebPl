@@ -1,6 +1,8 @@
 import styles from './Sidebar.module.scss';
 import clsx from 'clsx';
 import { SIDEBAR_ITEMS } from '@/helpers/constants';
+import { Routes } from '@/helpers/routes';
+import Link from 'next/link';
 
 export default function Sidebar() {
   const TITLE: string = 'Playlists';
@@ -11,7 +13,11 @@ export default function Sidebar() {
       </h5>
       <ul className={`ml-2 cursor-pointer ${styles.nav}`}>
         {SIDEBAR_ITEMS.map((item, index) => (
-          <li key={index}>{item.name}</li>
+          <li key={index}>
+            <Link href={`${Routes.Playlist}/${item.id}`}>
+              {item.name}
+            </Link>
+          </li>
         ))}
       </ul>
     </aside>
