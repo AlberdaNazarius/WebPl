@@ -3,24 +3,19 @@ import Image from 'next/image';
 import styles from './PlaylistCard.module.scss'
 import clsx from 'clsx'
 import { Routes } from '@/helpers/routes';
+import { PLAYLIST } from '@/helpers/constants';
 
 // type props = {
 //
 // }
 
 export default function PlaylistCard() {
-  const PLAYLIST = {
-    id: 1,
-    name: 'Playlist',
-    metadata: '5 min',
-  };
-
   const IMAGE_SIZE: number = 222;
 
   return (
     <div className={clsx(styles.card, 'card m-4 bg-black text-white w-fit')}>
       <Link href={`${Routes.Playlist}/${PLAYLIST.id}`}>
-        <Image src="/images/Image.jpg"
+        <Image src={PLAYLIST.image}
                width={IMAGE_SIZE}
                height={IMAGE_SIZE}
                className={clsx(styles.image, 'card-img-top')}
