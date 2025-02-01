@@ -6,7 +6,7 @@ export default function Home() {
     <div className='main-container'>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 '>
         {PLAYLISTS.map((playlist) => (
-          <PlaylistCard playlist={playlist} />
+          <PlaylistCard key={playlist.id} playlist={playlist} />
         ))}
       </div>
     </div>

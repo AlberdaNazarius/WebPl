@@ -16,7 +16,7 @@ export const PLAYLIST: Playlist = {
 
 export const PLAYLISTS: Playlist[] = [
   {
-    id: 1,
+    id: 0,
     name: 'ToHome',
     image: '/images/playlists/image-asset.png',
     songs: [],
@@ -24,7 +24,7 @@ export const PLAYLISTS: Playlist[] = [
     metadata: 'Author | 3 songs',
   },
   {
-    id: 2,
+    id: 1,
     name: 'ToWork',
     image: '/images/playlists/istock-1357759108.jpg',
     songs: [],
@@ -32,7 +32,7 @@ export const PLAYLISTS: Playlist[] = [
     metadata: 'Author | 3 songs',
   },
   {
-    id: 3,
+    id: 2,
     name: 'ToGym',
     image: '/images/playlists/Logo.jpg',
     songs: [],
@@ -40,7 +40,7 @@ export const PLAYLISTS: Playlist[] = [
     metadata: 'Author | 3 songs',
   },
   {
-    id: 4,
+    id: 3,
     name: 'ToHome',
     image: '/images/Image.jpg',
     songs: [],
@@ -51,7 +51,7 @@ export const PLAYLISTS: Playlist[] = [
 
 export const SONGS: Song[] = [
   {
-    id: 1,
+    id: 0,
     name: 'Chris',
     author: 'tables',
     album: 'Hello',
@@ -61,7 +61,7 @@ export const SONGS: Song[] = [
     image: '/images/Image.jpg',
   },
   {
-    id: 2,
+    id: 1,
     name: 'Dennis',
     author: 'Noname',
     album: 'A road',
@@ -71,7 +71,7 @@ export const SONGS: Song[] = [
     image: '/images/Image.jpg',
   },
   {
-    id: 3,
+    id: 2,
     name: 'Sarah',
     author: 'Good morning',
     album: 'Somewhere',
@@ -92,19 +92,19 @@ export const PLAYLIST_TABLE_HEADERS = [
 
 export const SIDEBAR_ITEMS = [
   {
-    id: '1',
+    id: '0',
     name: 'Home',
   },
   {
-    id: '2',
+    id: '1',
     name: 'Playlists',
   },
   {
-    id: '3',
+    id: '2',
     name: 'Albums',
   },
   {
-    id: '4',
+    id: '3',
     name: 'Artists',
   },
 ];
