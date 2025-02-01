@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 export default function Sidebar() {
   return (
-    <aside className={clsx(styles.aside, 'px-6 pt-2 fixed left-1.5 bottom-0 top-[3.75rem] rounded-lg')}>
-      <h5 className="text-lg">
+    <aside className={clsx(styles.aside, 'pl-4 pr-8 pt-3 fixed left-1.5 bottom-0 top-[3.75rem] rounded-lg')}>
+      <h5 className="text-lg text-white">
         {SIDEBAR_TITLE}
       </h5>
       <ul className={`ml-2 cursor-pointer ${styles.nav}`}>
