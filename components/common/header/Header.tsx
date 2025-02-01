@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Routes } from '@/helpers/routes';
+import { Routes } from '@/app/helpers/routes';
 import styles from './Header.module.scss'
 import clsx from 'clsx';
 

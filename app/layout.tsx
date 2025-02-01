@@ -15,13 +15,12 @@ const geistMono = localFont({
   weight: '100 900',
 });
 
-export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout(
+  {
+    children,
+  }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="en" className='main-background'>
+    <html lang="en" className="main-background">
     <body
       suppressHydrationWarning={true}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}

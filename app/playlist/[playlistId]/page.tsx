@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
-import { PLAYLIST_TABLE_HEADERS, PLAYLISTS, SONGS } from '@/helpers/constants';
-import styles from './Playlist.module.scss';
+import { PLAYLIST_TABLE_HEADERS, PLAYLISTS, SONGS } from '@/app/helpers/constants';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Playlist } from '@/app/models/Playlist';
+import SongItem from '@/components/song/SongItem';
 
 export default function PlaylistPage() {
   const {playlistId} = useParams();
@@ -17,7 +17,6 @@ export default function PlaylistPage() {
     if (typeof playlistId === 'string') {
       const id = parseInt(playlistId);
       setPlaylist(PLAYLISTS[id]);
-      console.log(PLAYLISTS[id]);
     }
   }, [playlistId]);
 
@@ -50,13 +49,7 @@ export default function PlaylistPage() {
             </thead>
             <tbody className="text-center">
             {SONGS.map((song, index) => (
-              <tr key={song.id} className={`${styles.songItem}`}>
-                  <th scope="row">{index+1}</th>
-                  <td>{song.name}</td>
-                  <td>{song.album}</td>
-                  <td>{song.dateAdded}</td>
-                  <td>{song.duration}</td>
-                </tr>
+              <SongItem key={song.id} song={song} index={index} />
               ))}
             </tbody>
           </table>

@@ -5,15 +5,6 @@ import { Scope } from '@/app/enum/Scope';
 export const IMAGE_SIZE_X: number = 200;
 export const IMAGE_SIZE_Y: number = 160;
 
-export const PLAYLIST: Playlist = {
-  id: 1,
-  name: 'ToHome',
-  image: '/images/Image.jpg',
-  songs: [],
-  scope: Scope.PRIVATE,
-  metadata: 'Author | 32 songs',
-};
-
 export const PLAYLISTS: Playlist[] = [
   {
     id: 0,
@@ -82,29 +73,11 @@ export const SONGS: Song[] = [
   },
 ];
 
+export const SIDEBAR_TITLE: string = 'Playlists';
 export const PLAYLIST_TABLE_HEADERS = [
   '#',
   'Title',
   'Album',
   'Data added',
   'Time',
-];
-
-export const SIDEBAR_ITEMS = [
-  {
-    id: '0',
-    name: 'Home',
-  },
-  {
-    id: '1',
-    name: 'Playlists',
-  },
-  {
-    id: '2',
-    name: 'Albums',
-  },
-  {
-    id: '3',
-    name: 'Artists',
-  },
 ];

@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './PlaylistCard.module.scss'
 import clsx from 'clsx'
-import { Routes } from '@/helpers/routes';
-import { IMAGE_SIZE_X, IMAGE_SIZE_Y } from '@/helpers/constants';
+import { Routes } from '@/app/helpers/routes';
+import { IMAGE_SIZE_X, IMAGE_SIZE_Y } from '@/app/helpers/constants';
 import { Playlist } from '@/app/models/Playlist';
 import React from 'react';
 
