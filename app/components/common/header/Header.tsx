@@ -21,7 +21,7 @@ export default function Header() {
         {/*</form>*/}
 
         <div>
-          <ul className={clsx(styles.authNav, 'flex gap-2')}>
+          <ul className={clsx(styles.authNav, 'flex gap-3')}>
             <li><Link href={Routes.Signup}>Sign up</Link></li>
             <li><Link href={Routes.Login}>Log in</Link></li>
           </ul>

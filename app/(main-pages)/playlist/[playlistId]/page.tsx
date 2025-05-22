@@ -8,7 +8,7 @@ import SongItem from '@/app/components/song/song-item/SongItem';
 import { PLAYLISTS } from '@/app/helpers/data';
 
 export default function PlaylistPage() {
-  const {playlistId} = useParams();
+  const { playlistId } = useParams();
   const [playlist, setPlaylist] = useState<Playlist>();
 
   useEffect(() => {
@@ -30,10 +30,12 @@ export default function PlaylistPage() {
         {/*TODO find better solution later*/}
         {playlist && (
           <div className="flex flex-row mb-4 relative">
-            <Image width={232}
-                   height={174}
-                   src={playlist?.image}
-                   alt="playlist_image" />
+            <Image
+              className={'rounded-lg w-[232px] h-[174px]'}
+              width={232}
+              height={174}
+              src={playlist?.image}
+              alt="playlist_image" />
             <div className="card-body">
               <span className="my-0 text-sm">{playlist?.scope}</span>
               <h1 className="font-bold text-7xl">{playlist?.name}</h1>
@@ -54,7 +56,7 @@ export default function PlaylistPage() {
             <tbody className="text-center">
             {playlist?.songs?.map((song, index) => (
               <SongItem key={song.id} playlistId={playlist?.id} song={song} index={index} />
-              ))}
+            ))}
             </tbody>
           </table>
         </div>
