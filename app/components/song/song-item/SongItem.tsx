@@ -1,26 +1,37 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './SongItem.module.scss';
 import { Song } from '@/app/models/Song';
 import usePlayerStore from '@/app/store/PlayerStore';
 
 interface SongProps {
   index: number;
+  playlistId: number;
   song: Song;
 }
 
-const SongItem: React.FC<SongProps> = ({song, index}) => {
+const SongItem: React.FC<SongProps> = ({song, index, playlistId}) => {
+  const {curPlaylistId, curSongId, setCurSongId, setCurPlaylistId} = usePlayerStore();
+  const [isActive, setIsActive] = useState(false);
 
-  const {setCurSongIndex} = usePlayerStore();
-  const handleSongClick = (index: number) => {
-    setCurSongIndex(index);
+  const handleSongClick = () => {
+    setCurPlaylistId(playlistId)
+    setCurSongId(index);
   }
+
+  useEffect(() => {
+    if (curPlaylistId === playlistId && curSongId === index) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [curPlaylistId, curSongId]);
 
   return (
     <tr
       key={song.id}
-      className={`${styles.songItem}`}
-      onDoubleClick={() => handleSongClick(song.id)}
+      className={`${styles.songItem} ${isActive ? styles.active : ''}`}
+      onDoubleClick={handleSongClick}
     >
       <th scope="row">{index + 1}</th>
       <td>{song.name}</td>

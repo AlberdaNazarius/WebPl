@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Playlist } from '@/app/models/Playlist';
 import SongItem from '@/app/components/song/song-item/SongItem';
-import { PLAYLISTS, SONGS } from '@/app/helpers/data';
+import { PLAYLISTS } from '@/app/helpers/data';
 
 export default function PlaylistPage() {
   const {playlistId} = useParams();
@@ -15,9 +15,12 @@ export default function PlaylistPage() {
     if (!playlistId) {
       return;
     }
+
     if (typeof playlistId === 'string') {
       const id = parseInt(playlistId);
       setPlaylist(PLAYLISTS[id]);
+    } else {
+      setPlaylist(PLAYLISTS[parseInt(playlistId[0])]);
     }
   }, [playlistId]);
 
@@ -50,7 +53,7 @@ export default function PlaylistPage() {
             </thead>
             <tbody className="text-center">
             {playlist?.songs?.map((song, index) => (
-              <SongItem key={song.id} song={song} index={index} />
+              <SongItem key={song.id} playlistId={playlist?.id} song={song} index={index} />
               ))}
             </tbody>
           </table>

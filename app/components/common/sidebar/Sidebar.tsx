@@ -6,14 +6,22 @@ import { SIDEBAR_TITLE } from '@/app/helpers/constants';
 import { Routes } from '@/app/helpers/routes';
 import Link from 'next/link';
 import { PLAYLISTS } from '@/app/helpers/data';
-import usePlayerStore from '@/app/store/PlayerStore';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 
 export default function Sidebar() {
-  const {setSongs} = usePlayerStore();
+  const { playlistId } = useParams();
+  const [selectedPlaylist, setSelectedPlaylist] = useState<number>(0);
 
-  const handleClick = (id: number) => {
-    setSongs(PLAYLISTS[id].songs);
-  }
+  useEffect(() => {
+    if (!playlistId) {
+      setSelectedPlaylist(-1);
+      return;
+    }
+
+    const id = parseInt(playlistId[0]);
+    setSelectedPlaylist(id);
+  }, [playlistId]);
 
   return (
     <aside className={clsx(styles.aside, 'pl-4 pr-8 pt-3 fixed left-1.5 bottom-0 top-[3.75rem] rounded-lg')}>
@@ -22,7 +30,10 @@ export default function Sidebar() {
       </h5>
       <ul className={`ml-2 cursor-pointer ${styles.nav}`}>
         {PLAYLISTS.map((item) => (
-          <li key={item.id} onClick={() => handleClick(item.id)}>
+          <li
+            key={item.id}
+            className={selectedPlaylist === item.id ? 'font-bold text-white' : ''}
+          >
             <Link href={`${Routes.Playlist}/${item.id}`}>
               {item.name}
             </Link>

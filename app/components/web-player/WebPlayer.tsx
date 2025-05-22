@@ -10,7 +10,7 @@ import './WebPlayer.scss';
 import usePlayerStore from '@/app/store/PlayerStore';
 
 const WebPlayer: React.FC = () => {
-  const {curSongIndex, getCurSong} = usePlayerStore();
+  const {curSongId, curPlaylistId, getCurSong, nextSong, prevSong} = usePlayerStore();
   const [song, setSong] = useState<Song>()
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const WebPlayer: React.FC = () => {
       return;
     }
     setSong(getCurSong());
-  }, [curSongIndex, getCurSong]);
+  }, [curSongId, curPlaylistId, getCurSong]);
 
   return (
     <div className={styles.webPlayer}>
@@ -37,9 +37,12 @@ const WebPlayer: React.FC = () => {
         </div>
         <div className='w-full pr-2'>
           <AudioPlayer
-            src={"/audio/COWBELL WARRIOR! - SXMPRA.mp3"}
+            src={song?.songKey ?? ''}
+            onClickPrevious={prevSong}
+            onClickNext={nextSong}
+            onEnded={nextSong}
             autoPlay={false}
-            onPlay={() => console.log("Playing")}
+            autoPlayAfterSrcChange={true}
           />
         </div>
       </div>

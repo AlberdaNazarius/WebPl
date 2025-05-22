@@ -30,7 +30,7 @@ export const SONGS: Song[] = [
     album: 'Somewhere',
     dateAdded: '22.02.2022',
     duration: '2:12',
-    songKey: '/audio/Shameless - Camila Cabello.mp3.mp3',
+    songKey: '/audio/Shameless - Camila Cabello.mp3',
     image: '/images/Image.jpg',
   },
 ];

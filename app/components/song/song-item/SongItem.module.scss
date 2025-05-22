@@ -7,6 +7,10 @@
     background-color: $song-hover-color;
   }
 
+  &.active {
+    color: $emerald-color;
+  }
+
   th {
     padding: 0.5rem 0;
   }
