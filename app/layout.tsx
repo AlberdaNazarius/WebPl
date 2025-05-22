@@ -2,7 +2,6 @@ import localFont from 'next/font/local';
 import './globals.scss';
 import React from 'react';
 import Header from '@/app/components/common/header/Header';
-import Sidebar from '@/app/components/common/sidebar/Sidebar';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -21,13 +20,17 @@ export default function RootLayout(
   }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en" className="main-background">
-      <body
-        suppressHydrationWarning={true}
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header />
-        {children}
-      </body>
+    <head>
+      <title>Streaming Service</title>
+      <link rel="icon" href="/favicon.ico" />
+    </head>
+    <body
+      suppressHydrationWarning={true}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
+    <Header />
+    {children}
+    </body>
     </html>
   );
 }

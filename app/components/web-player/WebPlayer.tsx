@@ -4,17 +4,21 @@ import AudioPlayer from 'react-h5-audio-player';
 import Image from 'next/image';
 import styles from './WebPlayer.module.scss';
 import { IMAGE_SIZE_PLAYER, imagePath } from '@/app/helpers/constants';
-import { SONGS } from '@/app/helpers/data';
 import 'react-h5-audio-player/lib/styles.css';
 import { Song } from '@/app/models/Song';
 import './WebPlayer.scss';
+import usePlayerStore from '@/app/store/PlayerStore';
 
 const WebPlayer: React.FC = () => {
+  const {curSongIndex, getCurSong} = usePlayerStore();
   const [song, setSong] = useState<Song>()
 
   useEffect(() => {
-    setSong(SONGS[0])
-  }, []);
+    if (!getCurSong()) {
+      return;
+    }
+    setSong(getCurSong());
+  }, [curSongIndex, getCurSong]);
 
   return (
     <div className={styles.webPlayer}>
@@ -33,7 +37,7 @@ const WebPlayer: React.FC = () => {
         </div>
         <div className='w-full pr-2'>
           <AudioPlayer
-            src={""}
+            src={"/audio/COWBELL WARRIOR! - SXMPRA.mp3"}
             autoPlay={false}
             onPlay={() => console.log("Playing")}
           />

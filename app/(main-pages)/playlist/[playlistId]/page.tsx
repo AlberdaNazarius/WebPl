@@ -29,12 +29,12 @@ export default function PlaylistPage() {
           <div className="flex flex-row mb-4 relative">
             <Image width={232}
                    height={174}
-                   src={playlist.image}
+                   src={playlist?.image}
                    alt="playlist_image" />
             <div className="card-body">
-              <span className="my-0 text-sm">{playlist.scope}</span>
-              <h1 className="font-bold text-7xl">{playlist.name}</h1>
-              <span className="absolute bottom-0">{playlist.metadata}</span>
+              <span className="my-0 text-sm">{playlist?.scope}</span>
+              <h1 className="font-bold text-7xl">{playlist?.name}</h1>
+              <span className="absolute bottom-0">{playlist?.metadata}</span>
             </div>
           </div>
         )}
@@ -49,7 +49,7 @@ export default function PlaylistPage() {
             </tr>
             </thead>
             <tbody className="text-center">
-            {SONGS.map((song, index) => (
+            {playlist?.songs?.map((song, index) => (
               <SongItem key={song.id} song={song} index={index} />
               ))}
             </tbody>
