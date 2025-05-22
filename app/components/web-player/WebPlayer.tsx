@@ -26,11 +26,12 @@ const WebPlayer: React.FC = () => {
         <div className='flex'>
           <Image
             src={song?.image || `${imagePath}/Image.jpg`}
+            className='w-[80px] h-[80px] rounded-lg'
             width={IMAGE_SIZE_PLAYER}
             height={IMAGE_SIZE_PLAYER}
             alt='preview image'
           />
-          <div className='ml-3'>
+          <div className='ml-3 w-[105px]'>
             <h6 className='text-white'>{song?.name}</h6>
             <span>{song?.album}</span>
           </div>
@@ -43,6 +44,8 @@ const WebPlayer: React.FC = () => {
             onEnded={nextSong}
             autoPlay={false}
             autoPlayAfterSrcChange={true}
+            showJumpControls={false}
+            showSkipControls={true}
           />
         </div>
       </div>
