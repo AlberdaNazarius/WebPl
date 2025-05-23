@@ -1,15 +1,19 @@
 'use client';
 import Image from 'next/image';
-import { PLAYLIST_TABLE_HEADERS } from '@/app/helpers/constants';
+import { imagePathPlaylist, PLAYLIST_TABLE_HEADERS } from '@/app/helpers/constants';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Playlist } from '@/app/models/Playlist';
 import SongItem from '@/app/components/song/song-item/SongItem';
-import { PLAYLISTS } from '@/app/helpers/data';
+import { PlaylistService } from '@/app/services/playlist.service';
 
 export default function PlaylistPage() {
   const { playlistId } = useParams();
   const [playlist, setPlaylist] = useState<Playlist>();
+
+  const getPlaylist = async (playlistId: number) => {
+    setPlaylist(await PlaylistService.getPlaylist(playlistId));
+  }
 
   useEffect(() => {
     if (!playlistId) {
@@ -18,9 +22,9 @@ export default function PlaylistPage() {
 
     if (typeof playlistId === 'string') {
       const id = parseInt(playlistId);
-      setPlaylist(PLAYLISTS[id]);
+      getPlaylist(id);
     } else {
-      setPlaylist(PLAYLISTS[parseInt(playlistId[0])]);
+      getPlaylist(parseInt(playlistId[0]));
     }
   }, [playlistId]);
 
@@ -34,7 +38,7 @@ export default function PlaylistPage() {
               className={'rounded-lg w-[232px] h-[174px]'}
               width={232}
               height={174}
-              src={playlist?.image}
+              src={`${imagePathPlaylist}/${playlist?.imageKey}`}
               alt="playlist_image" />
             <div className="card-body">
               <span className="my-0 text-sm">{playlist?.scope}</span>

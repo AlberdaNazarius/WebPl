@@ -8,6 +8,14 @@ const getPlaylists = async () => {
   })).data;
 }
 
+const getPlaylist = async (playlistId: number) => {
+  return (await ApiService.makeApiRequest({
+    url: `/api/playlist/${playlistId}`,
+    method: HttpMethods.GET,
+  })).data;
+}
+
 export const PlaylistService = {
   getPlaylists,
+  getPlaylist,
 }

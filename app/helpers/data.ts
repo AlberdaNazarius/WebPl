@@ -39,7 +39,7 @@ export const PLAYLISTS: Playlist[] = [
   {
     id: 0,
     name: 'ToHome',
-    image: '/images/playlists/image-asset.png',
+    imageKey: '/images/playlists/image-asset.png',
     songs: [SONGS[0], SONGS[1]],
     scope: Scope.PRIVATE,
     metadata: 'Author | 3 songs',
@@ -47,7 +47,7 @@ export const PLAYLISTS: Playlist[] = [
   {
     id: 1,
     name: 'ToWork',
-    image: '/images/playlists/istock-1357759108.jpg',
+    imageKey: '/images/playlists/istock-1357759108.jpg',
     songs: [SONGS[2]],
     scope: Scope.PUBLIC,
     metadata: 'Author | 3 songs',
@@ -55,7 +55,7 @@ export const PLAYLISTS: Playlist[] = [
   {
     id: 2,
     name: 'ToGym',
-    image: '/images/playlists/Logo.jpg',
+    imageKey: '/images/playlists/Logo.jpg',
     songs: [SONGS[1]],
     scope: Scope.PRIVATE,
     metadata: 'Author | 3 songs',
@@ -63,7 +63,7 @@ export const PLAYLISTS: Playlist[] = [
   {
     id: 3,
     name: 'ToHome',
-    image: '/images/Image.jpg',
+    imageKey: '/images/Image.jpg',
     songs: [SONGS[1]],
     scope: Scope.PRIVATE,
     metadata: 'Author | 3 songs',
