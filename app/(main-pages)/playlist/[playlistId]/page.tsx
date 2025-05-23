@@ -31,7 +31,6 @@ export default function PlaylistPage() {
   return (
     <div className="flex justify-center pl-4 main-container">
       <div className="container mt-6 mb-4">
-        {/*TODO find better solution later*/}
         {playlist && (
           <div className="flex flex-row mb-4 relative">
             <Image
