@@ -3,7 +3,7 @@ import Bottleneck from "bottleneck";
 import axios from "axios";
 import { ResponseTypes } from '@/app/types/enums/ResponseTypes';
 import { HttpMethods } from '@/app/types/enums/HttpMethods';
-import ApiErrorHandler from '@/app/services/ApiErrorHandler';
+import ApiErrorHandler from '@/app/helpers/ApiErrorHandler';
 import { ApiRequestOptions, HttpsRequestOptions } from '@/app/types/interfaces/api';
 const defaultHeaders = {
   'Accept': 'application/json',
@@ -110,7 +110,7 @@ const makeHttpsRequest = async (options: HttpsRequestOptions) => {
     });
 
     console.log('Response from backend:', response.data);
-    return res.status(response.status).json(response.data);
+    return response.data;
   } catch (error) {
     if (error.response && error.response.status === 302) {
       try {

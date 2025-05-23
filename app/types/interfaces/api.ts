@@ -5,7 +5,7 @@ import { ResponseTypes } from '@/app/types/enums/ResponseTypes';
 export interface HttpsRequestOptions {
   url: string;
   req: any;
-  res: any;
+  res?: any;
   method: HttpMethods;
   data?: any;
   contentType?: string;
