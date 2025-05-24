@@ -77,7 +77,9 @@ const makeApiRequest = async (options: ApiRequestOptions, token?: string) => {
       }
     });
 
-    console.log('Backend response', response.data);
+    if (options.log) {
+      console.log('Backend response', response.data);
+    }
     return response.data;
   } catch (error) {
     if (!options?.notShowError) {

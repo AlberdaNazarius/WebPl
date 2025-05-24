@@ -19,4 +19,5 @@ export interface ApiRequestOptions {
   headers?: any;
   responseType?: ResponseTypes;
   notShowError?: boolean;
+  log?: boolean;
 }

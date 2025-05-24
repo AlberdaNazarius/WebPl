@@ -36,11 +36,11 @@ export default function Sidebar() {
   }, [playlistId]);
 
   return (
-    <aside className={clsx(styles.aside, 'w-[115px] pl-3 pr-1 pt-3 fixed left-1.5 bottom-0 top-[3.75rem] rounded-lg')}>
+    <aside className={clsx(styles.aside, 'w-[225px] pl-3 pr-1 pt-3 fixed left-1.5 bottom-[106px] top-[3.75rem] rounded-lg')}>
       <h5 className="text-lg text-white">
         {SIDEBAR_TITLE}
       </h5>
-      <ul className={`mt-2 cursor-pointer ${styles.nav}`}>
+      <ul className={`mt-2 pl-2 cursor-pointer ${styles.nav}`}>
         {playlists.length > 0 && playlists.map((item) => (
           <li
             key={item.id}

@@ -1,7 +1,7 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 import { Song } from '@/app/models/Song';
 import { Playlist } from '@/app/models/Playlist';
-import { PLAYLISTS } from '@/app/helpers/data';
+import { AudioService } from '@/app/services/audio.service';
 
 interface PlayerState {
   curPlaylistId: number;
@@ -10,6 +10,8 @@ interface PlayerState {
   setCurPlaylistId: (index: number) => void;
 
   playlists: Playlist[];
+
+  setPlaylists: (playlists: Playlist[]) => void;
   getCurSong: () => Song | undefined;
   nextSong: () => void;
   prevSong: () => void;
@@ -18,15 +20,19 @@ interface PlayerState {
 const usePlayerStore = create<PlayerState>((set) => ({
   curPlaylistId: 0,
   curSongId: 0,
-  playlists: PLAYLISTS,
+  playlists: [],
   getCurSong: (): Song | undefined => {
     const state = usePlayerStore.getState();
     const curPlaylistSongs = state.playlists?.[state.curPlaylistId]?.songs
     if (!curPlaylistSongs || curPlaylistSongs.length === 0) {
       return undefined;
     }
-    return curPlaylistSongs[state.curSongId];
+    return {
+      ...curPlaylistSongs[state.curSongId],
+      songKey:  AudioService.getStreamUrl(curPlaylistSongs[state.curSongId].songKey)
+    };
   },
+  setPlaylists: (playlists: Playlist[]) => set(() => ({ playlists })),
   setCurSongId: (index: number) => set(() => ({ curSongId: index}  )),
   setCurPlaylistId: (index: number) => set(() => ({ curPlaylistId: index})),
   nextSong: () => set((state) => {
