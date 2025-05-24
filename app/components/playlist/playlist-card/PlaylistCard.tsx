@@ -22,9 +22,9 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
           className={clsx(styles.image, 'card-img-top')}
           alt="image"
         />
-        <div className="card-body pt-4">
-          <h3 className="m-0">{playlist.name}</h3>
-          <p className="">{playlist.metadata}</p>
+        <div className="card-body pt-3 pb-4 pl-4">
+          <h3 className="m-0 text-lg">{playlist.name}</h3>
+          <p className="text-sm">MyPl • {playlist.songs.length} songs</p>
         </div>
       </Link>
     </div>

@@ -36,7 +36,7 @@ export default function Sidebar() {
   }, [playlistId]);
 
   return (
-    <aside className={clsx(styles.aside, 'w-[225px] pl-3 pr-1 pt-3 fixed left-1.5 bottom-[106px] top-[3.75rem] rounded-lg')}>
+    <aside className={clsx(styles.aside, 'w-[225px] pl-4 pr-1 pt-3 fixed left-2 bottom-[106px] top-[3.75rem] rounded-lg')}>
       <h5 className="text-lg text-white">
         {SIDEBAR_TITLE}
       </h5>
