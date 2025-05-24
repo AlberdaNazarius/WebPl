@@ -6,42 +6,68 @@ import { AudioService } from '@/app/services/audio.service';
 interface PlayerState {
   curPlaylistId: number;
   curSongId: number;
-  setCurSongId: (index: number) => void;
-  setCurPlaylistId: (index: number) => void;
-
   playlists: Playlist[];
 
+  setCurSongId: (id: number) => void;
+  setCurPlaylistId: (id: number) => void;
   setPlaylists: (playlists: Playlist[]) => void;
+  getCurrentPlaylist: () => Playlist | undefined;
   getCurSong: () => Song | undefined;
   nextSong: () => void;
   prevSong: () => void;
 }
 
-const usePlayerStore = create<PlayerState>((set) => ({
-  curPlaylistId: 0,
-  curSongId: 0,
+const usePlayerStore = create<PlayerState>((set, get) => ({
+  curPlaylistId: -1,
+  curSongId: -1,
   playlists: [],
   getCurSong: (): Song | undefined => {
     const state = usePlayerStore.getState();
-    const curPlaylistSongs = state.playlists?.[state.curPlaylistId]?.songs
-    if (!curPlaylistSongs || curPlaylistSongs.length === 0) {
+    const playlist = state.getCurrentPlaylist();
+    const currentPlaylistSongs = playlist?.songs;
+
+    if (!currentPlaylistSongs || currentPlaylistSongs.length === 0) {
       return undefined;
     }
+    const currentSong = currentPlaylistSongs.find(p => p.id === state.curSongId);
+
+    if (!currentSong) {
+      return undefined;
+    }
+
     return {
-      ...curPlaylistSongs[state.curSongId],
-      songKey:  AudioService.getStreamUrl(curPlaylistSongs[state.curSongId].songKey)
+      ...currentSong,
+      songKey:  AudioService.getStreamUrl(currentSong?.songKey)
     };
   },
+  getCurrentPlaylist: () => {
+    const state = get();
+    return state.playlists.find(p => p.id === state.curPlaylistId);
+  },
   setPlaylists: (playlists: Playlist[]) => set(() => ({ playlists })),
-  setCurSongId: (index: number) => set(() => ({ curSongId: index}  )),
-  setCurPlaylistId: (index: number) => set(() => ({ curPlaylistId: index})),
+  setCurSongId: (id: number) => set(() => ({ curSongId: id}  )),
+  setCurPlaylistId: (id: number) => set(() => ({ curPlaylistId: id})),
   nextSong: () => set((state) => {
-    const nextIndex = (state.curSongId + 1) % state.playlists?.[state.curPlaylistId]?.songs?.length;
-    return { curSongId: nextIndex };
+    const playlist = state.getCurrentPlaylist();
+    if (!playlist || state.curSongId === -1) {
+      return { curSongId: -1 };
+    }
+
+    const sortedSongs = playlist.songs.slice().sort((a, b) => a.id - b.id);
+    const currentIndex = sortedSongs.findIndex(s => s.id === state.curSongId);
+    const nextIndex = (currentIndex + 1) % playlist.songs.length;
+    return { curSongId: sortedSongs[nextIndex].id };
   }),
   prevSong: () => set((state) => {
-    const prevIndex = (state.curSongId - 1 + state.playlists?.[state.curPlaylistId]?.songs.length) % state.playlists?.[state.curPlaylistId]?.songs.length;
-    return { curSongId: prevIndex };
+    const playlist = state.getCurrentPlaylist();
+    if (!playlist || state.curSongId === null) {
+      return { curSongId: -1 };
+    }
+
+    const sortedSongs = playlist.songs.slice().sort((a, b) => a.id - b.id);
+    const currentIndex = sortedSongs.findIndex(s => s.id === state.curSongId);
+    const prevIndex = (currentIndex - 1 + playlist.songs.length) % playlist.songs.length;
+    return { curSongId: sortedSongs[prevIndex].id };
   }),
 }));
 

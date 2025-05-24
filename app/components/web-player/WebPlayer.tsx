@@ -31,7 +31,7 @@ const WebPlayer: React.FC = () => {
             height={IMAGE_SIZE_PLAYER}
             alt='preview image'
           />
-          <div className='ml-3 w-[105px]'>
+          <div className='ml-3 w-[150px]'>
             <h6 className='text-white'>{song?.name}</h6>
             <span>{song?.album}</span>
           </div>

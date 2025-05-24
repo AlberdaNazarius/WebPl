@@ -15,13 +15,13 @@ const SongItem: React.FC<SongProps> = ({song, index, playlistId}) => {
   const {curPlaylistId, curSongId, setCurSongId, setCurPlaylistId} = usePlayerStore();
   const [isActive, setIsActive] = useState(false);
 
-  const handleSongClick = () => {
+  const handleSongClick = (id: number) => {
     setCurPlaylistId(playlistId)
-    setCurSongId(index);
+    setCurSongId(id);
   }
 
   useEffect(() => {
-    if (curPlaylistId === playlistId && curSongId === index) {
+    if (curPlaylistId === playlistId && curSongId === song.id) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -32,7 +32,7 @@ const SongItem: React.FC<SongProps> = ({song, index, playlistId}) => {
     <tr
       key={song.id}
       className={`${styles.songItem} ${isActive ? styles.active : ''}`}
-      onDoubleClick={handleSongClick}
+      onDoubleClick={() => handleSongClick(song.id)}
     >
       <th scope="row">{index + 1}</th>
       <td>{song?.name}</td>

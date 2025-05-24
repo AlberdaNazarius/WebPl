@@ -57,7 +57,10 @@ export default function PlaylistPage() {
             </tr>
             </thead>
             <tbody className="text-center">
-            {playlist?.songs?.map((song, index) => (
+            {playlist?.songs
+              ?.slice()
+              .sort((a, b) => a.id - b.id)
+              .map((song, index) => (
               <SongItem key={song.id} playlistId={playlist?.id} song={song} index={index} />
             ))}
             </tbody>
