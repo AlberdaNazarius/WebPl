@@ -3,7 +3,7 @@ export interface Song {
   name: string,
   author: string,
   album: string,
-  dateAdded: string,
+  addedDate: string,
   duration: string,
   songKey: string,
   image: string

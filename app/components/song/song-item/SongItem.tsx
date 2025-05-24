@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './SongItem.module.scss';
 import { Song } from '@/app/models/Song';
 import usePlayerStore from '@/app/store/PlayerStore';
+import { formatDate } from '@/app/helpers/utils';
 
 interface SongProps {
   index: number;
@@ -34,10 +35,10 @@ const SongItem: React.FC<SongProps> = ({song, index, playlistId}) => {
       onDoubleClick={handleSongClick}
     >
       <th scope="row">{index + 1}</th>
-      <td>{song.name}</td>
-      <td>{song.album}</td>
-      <td>{song.dateAdded}</td>
-      <td>{song.duration}</td>
+      <td>{song?.name}</td>
+      <td>{song?.album}</td>
+      <td>{formatDate(song?.addedDate)}</td>
+      <td>{song?.duration}</td>
     </tr>
   )
 }
