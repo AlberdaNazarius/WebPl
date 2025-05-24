@@ -1,4 +1,7 @@
-const getStreamUrl = (songId: string) => {
+const getStreamUrl = (songId: string | null) => {
+  if (!songId) {
+    return '';
+  }
   return `/api/audio/stream/${songId}`;
 }
 

@@ -7,6 +7,7 @@ import { AuthService } from '@/app/services/auth.service';
 import { useEffect, useRef, useState } from 'react';
 import { SongService } from '@/app/services/song.service';
 import { Song } from '@/app/models/Song';
+import usePlayerStore from '@/app/store/PlayerStore';
 
 export default function Header() {
   const [auth, setAuth] = useState(false);
@@ -14,6 +15,8 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const {setSelectedSong} = usePlayerStore();
 
   const fetchSongs = async () => {
     setSongs(await SongService.getAllSongs());
@@ -74,7 +77,8 @@ export default function Header() {
             <div className="absolute bg-[#34373d] rounded left-0 right-0 pt-3 pb-1 px-3 mt-1 max-h-[160px] overflow-y-auto">
               {filteredSongs.map((song) => (
                 <div
-                  key={song.songKey}
+                  key={song?.songKey}
+                  onClick={() => setSelectedSong(song)}
                   className="bg-[#4a4f57] py-1 mb-2 rounded-lg text-center hover:text-white cursor-pointer"
                 >
                   {song.name}

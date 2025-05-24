@@ -16,7 +16,7 @@ const SongItem: React.FC<SongProps> = ({song, index, playlistId}) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleSongClick = (id: number) => {
-    setCurPlaylistId(playlistId)
+    setCurPlaylistId(playlistId);
     setCurSongId(id);
   }
 
