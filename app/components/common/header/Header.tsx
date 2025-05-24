@@ -4,19 +4,55 @@ import { Routes } from '@/app/helpers/routes';
 import styles from './Header.module.scss';
 import clsx from 'clsx';
 import { AuthService } from '@/app/services/auth.service';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { SongService } from '@/app/services/song.service';
+import { Song } from '@/app/models/Song';
 
 export default function Header() {
   const [auth, setAuth] = useState(false);
-  
+  const [songs, setSongs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const fetchSongs = async () => {
+    setSongs(await SongService.getAllSongs());
+  };
+
+  const filteredSongs: Song[] = songs.filter((song: Song) =>
+    song.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   const handleLogout = () => {
     AuthService.logout();
     setAuth(false);
-  }
+  };
 
   useEffect(() => {
     setAuth(AuthService.isAuthenticated);
+    fetchSongs();
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSearchResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
+
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      setShowSearchResults(false);
+    } else {
+      setShowSearchResults(true);
+    }
+
+
+  }, [searchQuery]);
 
   return (
     <header className="m-0 px-4 py-4 bg-[#0a0a0a] fixed top-0 left-0 right-0 h-[3.75rem] z-10">
@@ -27,12 +63,26 @@ export default function Header() {
           </h5>
         </Link>
 
-        {/*<form role="search">*/}
-        <input className="input input-bordered w-full max-w-xs max-h-7 text-base"
-               type="search"
-               placeholder="Search..."
-               aria-label="Search" />
-        {/*</form>*/}
+        <div className="relative grow max-w-96" ref={searchRef} onClick={() => setShowSearchResults(true)}>
+          <input className="input input-bordered w-full max-h-7 text-base"
+                 type="search"
+                 placeholder="Search..."
+                 aria-label="Search"
+                 onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {showSearchResults && filteredSongs.length > 0 &&
+            <div className="absolute bg-[#34373d] rounded left-0 right-0 pt-3 pb-1 px-3 mt-1 max-h-[160px] overflow-y-auto">
+              {filteredSongs.map((song) => (
+                <div
+                  key={song.songKey}
+                  className="bg-[#4a4f57] py-1 mb-2 rounded-lg text-center hover:text-white cursor-pointer"
+                >
+                  {song.name}
+                </div>
+              ))}
+            </div>
+          }
+        </div>
 
         <div>
           {!auth &&
