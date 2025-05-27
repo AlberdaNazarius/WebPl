@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SongService } from '@/app/services/song.service';
 import { Song } from '@/app/models/Song';
 import usePlayerStore from '@/app/store/PlayerStore';
+import RecommendBtn from '@/app/components/recommendations/RecommendBtn';
 
 export default function Header() {
   const [auth, setAuth] = useState(false);
@@ -61,7 +62,7 @@ export default function Header() {
     <header className="m-0 px-4 py-4 bg-[#0a0a0a] fixed top-0 left-0 right-0 h-[3.75rem] z-10">
       <div className="flex justify-between items-center">
         <Link href={Routes.Home}>
-          <h5 className="text-lg">
+          <h5 className="text-lg hover:text-white">
             Steaming service
           </h5>
         </Link>
@@ -89,6 +90,9 @@ export default function Header() {
         </div>
 
         <div>
+          <RecommendBtn />
+        </div>
+        <div className='hidden'>
           {!auth &&
             <ul className={clsx(styles.authNav, 'flex gap-3')}>
               <li><Link href={Routes.Signup}>Sign up</Link></li>
