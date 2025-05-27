@@ -44,7 +44,7 @@ const RecommendBtn: FC = ({}) => {
           </div>
           <input className="input input-bordered w-full text-base mt-auto !py-2"
                  type="search"
-                 placeholder="Descript want you want..."
+                 placeholder="Describe want you want..."
                  aria-label="Find songs"
                  onChange={handleOnChange}
                  onKeyDown={handleKeyDown}
