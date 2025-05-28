@@ -3,6 +3,7 @@ import React, { FC, useRef } from 'react';
 import { RecommendsService } from '@/app/services/recommends.service';
 import { RecommendationRequest } from '@/app/models/RecommendationRequest';
 import { FormattedRecommendation } from '@/app/models/FormattedRecommendation';
+import { imagePath } from '@/app/helpers/constants';
 
 const RecommendBtn: FC = ({}) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -30,7 +31,7 @@ const RecommendBtn: FC = ({}) => {
   return (
     <>
       <button onClick={handleClick} className="cursor-pointer hover:text-white">
-        Find songs
+        <img src={`${imagePath}/globe-icon.png`} alt="globe" width='20'/>
       </button>
       <dialog ref={dialogRef} className="modal">
         <div className="modal-box min-h-[500px] flex flex-col justify-between">

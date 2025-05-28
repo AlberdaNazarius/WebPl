@@ -23,7 +23,7 @@ export default function Sidebar() {
     };
 
     fetchPlaylists();
-  }, []);
+  }, [playlists.length]);
 
   useEffect(() => {
     if (!playlistId) {
@@ -36,20 +36,25 @@ export default function Sidebar() {
   }, [playlistId]);
 
   return (
-    <aside className={clsx(styles.aside, 'w-[225px] pl-4 pr-1 pt-3 fixed left-2 bottom-[106px] top-[3.75rem] rounded-lg')}>
-      <h5 className="text-lg text-white">
-        {SIDEBAR_TITLE}
-      </h5>
+    <aside
+      className={clsx(styles.aside, 'w-[225px] pl-4 pr-1 pt-3 fixed left-2 bottom-[106px] top-[3.75rem] rounded-lg')}>
+      <div className="relative">
+        <h5 className="text-lg text-white">
+          {SIDEBAR_TITLE}
+        </h5>
+        <span className="absolute text-2xl top-0 right-3 hover:text-white cursor-pointer">+</span>
+      </div>
       <ul className={`mt-2 pl-2 cursor-pointer ${styles.nav}`}>
         {playlists.length > 0 && playlists.map((item) => (
           <li
             key={item.id}
             className={clsx(
               selectedPlaylist === item.id ? 'font-bold text-white' : '',
-              'w-full overflow-hidden mb-1'
+              'w-full overflow-hidden mb-1',
             )}
           >
-            <Link className='block w-full text-ellipsis overflow-hidden whitespace-nowrap' href={`${Routes.Playlist}/${item.id}`}>
+            <Link className="block w-full text-ellipsis overflow-hidden whitespace-nowrap"
+                  href={`${Routes.Playlist}/${item.id}`}>
               {item.name}
             </Link>
           </li>

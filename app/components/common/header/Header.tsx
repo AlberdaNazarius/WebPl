@@ -17,7 +17,7 @@ export default function Header() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  const {setSelectedSong} = usePlayerStore();
+  const { setSelectedSong } = usePlayerStore();
 
   const fetchSongs = async () => {
     setSongs(await SongService.getAllSongs());
@@ -61,11 +61,14 @@ export default function Header() {
   return (
     <header className="m-0 px-4 py-4 bg-[#0a0a0a] fixed top-0 left-0 right-0 h-[3.75rem] z-10">
       <div className="flex justify-between items-center">
-        <Link href={Routes.Home}>
-          <h5 className="text-lg hover:text-white">
-            Steaming service
-          </h5>
-        </Link>
+        <div className='flex gap-2 items-center'>
+          <RecommendBtn />
+          <Link href={Routes.Home}>
+            <h5 className="text-lg hover:text-white">
+              Steaming service
+            </h5>
+          </Link>
+        </div>
 
         <div className="relative grow max-w-96" ref={searchRef} onClick={() => setShowSearchResults(true)}>
           <input className="input input-bordered w-full max-h-7 text-base"
@@ -75,7 +78,8 @@ export default function Header() {
                  onChange={(e) => setSearchQuery(e.target.value)}
           />
           {showSearchResults && filteredSongs.length > 0 &&
-            <div className="absolute bg-[#34373d] rounded left-0 right-0 pt-3 pb-1 px-3 mt-1 max-h-[160px] overflow-y-auto">
+            <div
+              className="absolute bg-[#34373d] rounded left-0 right-0 pt-3 pb-1 px-3 mt-1 max-h-[160px] overflow-y-auto">
               {filteredSongs.map((song) => (
                 <div
                   key={song?.songKey}
@@ -89,29 +93,25 @@ export default function Header() {
           }
         </div>
 
-        <div>
-          <RecommendBtn />
-        </div>
-        <div className='hidden'>
-          {!auth &&
-            <ul className={clsx(styles.authNav, 'flex gap-3')}>
-              <li><Link href={Routes.Signup}>Sign up</Link></li>
-              <li><Link href={Routes.Login}>Log in</Link></li>
-            </ul>
-          }
-          {auth &&
-            <ul className={clsx(styles.authNav, 'flex gap-3')}>
-              <li>User</li>
-              <li
-                className="cursor-pointer"
-                onClick={handleLogout}
-              >
-                Log out
-              </li>
-            </ul>
-          }
-        </div>
+        {!auth &&
+          <ul className={clsx(styles.authNav, 'flex gap-3')}>
+            <li><Link href={Routes.Signup}>Sign up</Link></li>
+            <li><Link href={Routes.Login}>Log in</Link></li>
+          </ul>
+        }
+        {auth &&
+          <ul className={clsx(styles.authNav, 'flex gap-3')}>
+            <li>User</li>
+            <li
+              className="cursor-pointer"
+              onClick={handleLogout}
+            >
+              Log out
+            </li>
+          </ul>
+        }
       </div>
+
     </header>
   );
 }
