@@ -11,3 +11,13 @@ export async function GET(req: Request) {
 
   return NextResponse.json({data: response});
 }
+
+export async function POST(req: Request) {
+  const response = await ApiService.makeHttpsRequest({
+    url: `${process.env.NEXT_PRIVATE_HOST_API}/playlist`,
+    method: HttpMethods.POST,
+    req: req,
+  });
+
+  return NextResponse.json({data: response});
+}

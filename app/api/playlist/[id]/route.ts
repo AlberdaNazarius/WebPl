@@ -11,3 +11,13 @@ export async function GET(req: Request, {params}: { params: { id: string } }) {
 
   return NextResponse.json({data: response});
 }
+
+export async function DELETE(req: Request, {params}: { params: { id: string } }) {
+  const response = await ApiService.makeHttpsRequest({
+    url: `${process.env.NEXT_PRIVATE_HOST_API}/playlist/${params.id}`,
+    method: HttpMethods.DELETE,
+    req: req,
+  });
+
+  return NextResponse.json({data: response});
+}
