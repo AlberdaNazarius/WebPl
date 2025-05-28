@@ -9,8 +9,10 @@ import { SongService } from '@/app/services/song.service';
 import { Song } from '@/app/models/Song';
 import usePlayerStore from '@/app/store/PlayerStore';
 import RecommendBtn from '@/app/components/recommendations/RecommendBtn';
+import useAuthStore from '@/app/store/AuthStore';
 
 export default function Header() {
+  const { credentials } = useAuthStore();
   const [auth, setAuth] = useState(false);
   const [songs, setSongs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,9 +29,8 @@ export default function Header() {
     song.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const handleLogout = () => {
-    AuthService.logout();
-    setAuth(false);
+  const handleLogout = async () => {
+    await AuthService.logout();
   };
 
   useEffect(() => {
@@ -54,9 +55,11 @@ export default function Header() {
     } else {
       setShowSearchResults(true);
     }
-
-
   }, [searchQuery]);
+
+  useEffect(() => {
+    setAuth(AuthService.isAuthenticated());
+  }, [credentials]);
 
   return (
     <header className="m-0 px-4 py-4 bg-[#0a0a0a] fixed top-0 left-0 right-0 h-[3.75rem] z-10">
@@ -101,7 +104,7 @@ export default function Header() {
         }
         {auth &&
           <ul className={clsx(styles.authNav, 'flex gap-3')}>
-            <li>User</li>
+            <li>{credentials?.username || 'User'}</li>
             <li
               className="cursor-pointer"
               onClick={handleLogout}

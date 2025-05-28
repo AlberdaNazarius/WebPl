@@ -109,7 +109,7 @@ const makeHttpsRequest = async (options: HttpsRequestOptions) => {
       url: url,
       headers: headersParams,
       responseType: options?.responseType || ResponseTypes.JSON,
-      ...(req.body && {data: req.body}),
+      ...(req.body && {data: await req.json()}),
       maxRedirects: 0,
     });
 
