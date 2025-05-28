@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Playlist } from '@/app/models/Playlist';
 import { PlaylistService } from '@/app/services/playlist.service';
+import CreatePlaylistBtn from '@/app/components/playlist/create-playlist/CreatePlaylistBtn';
 
 export default function Sidebar() {
   const { playlistId } = useParams();
@@ -42,7 +43,7 @@ export default function Sidebar() {
         <h5 className="text-lg text-white">
           {SIDEBAR_TITLE}
         </h5>
-        <span className="absolute text-2xl top-0 right-3 hover:text-white cursor-pointer">+</span>
+        <CreatePlaylistBtn />
       </div>
       <ul className={`mt-2 pl-2 cursor-pointer ${styles.nav}`}>
         {playlists.length > 0 && playlists.map((item) => (
