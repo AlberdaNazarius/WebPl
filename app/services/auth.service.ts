@@ -8,6 +8,15 @@ const isAuthenticated = () => {
   return !!(credentials.username && credentials.password);
 }
 
+const getCredentials = () => {
+  const credentials = useAuthStore.getState().getCredentials();
+  if (!credentials.username || !credentials.password) {
+    console.warn('No credentials found in the store');
+    return null;
+  }
+  return credentials;
+}
+
 const login = async (credentials: Credentials) => {
   try {
     if (isAuthenticated()) {
@@ -22,6 +31,7 @@ const login = async (credentials: Credentials) => {
     })
 
     useAuthStore.getState().storeCredentials(credentials.username, credentials.password);
+    window.location.href = '/';
   } catch (error) {
     console.error('Error checking authentication:', error);
   }
@@ -41,6 +51,7 @@ const signup = async (credentials: Credentials) => {
     })
 
     useAuthStore.getState().storeCredentials(credentials.username, credentials.password);
+    window.location.href = '/';
   } catch (error) {
     console.error('Error checking authentication:', error);
   }
@@ -55,4 +66,5 @@ export const AuthService = {
   login,
   signup,
   logout,
+  getCredentials,
 }

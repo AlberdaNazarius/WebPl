@@ -1,11 +1,22 @@
 import { HttpMethods } from '@/app/types/enums/HttpMethods';
 import ApiService from '@/app/services/api.service';
 
-const getPlaylists = async () => {
+const getAllPlaylists = async () => {
   return (await ApiService.makeApiRequest({
     url: '/api/playlist/playlists',
     method: HttpMethods.GET,
   })).data;
+}
+
+const getAllUserPlaylists = async () => {
+  const response = await ApiService.makeAuthenticatedApiRequest({
+    url: '/api/playlist/playlists/user',
+    method: HttpMethods.GET,
+  });
+  if (!response) {
+    return [];
+  }
+  return response.data;
 }
 
 const getPlaylist = async (playlistId: number) => {
@@ -16,6 +27,7 @@ const getPlaylist = async (playlistId: number) => {
 }
 
 export const PlaylistService = {
-  getPlaylists,
+  getAllPlaylists,
+  getAllUserPlaylists,
   getPlaylist,
 }

@@ -26,7 +26,7 @@ export default function RootLayout(
   useEffect(() => {
     const fetchPlaylists = async () => {
       try {
-        const playlists = await PlaylistService.getPlaylists();
+        const playlists = await PlaylistService.getAllUserPlaylists();
         setPlaylists(playlists);
       } catch (err) {
         console.error('Failed to fetch playlists:', err);

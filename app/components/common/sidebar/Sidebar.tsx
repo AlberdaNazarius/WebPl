@@ -19,7 +19,7 @@ export default function Sidebar() {
     if (playlists.length > 0) return;
 
     const fetchPlaylists = async () => {
-      setPlaylists(await PlaylistService.getPlaylists());
+       setPlaylists(await PlaylistService.getAllUserPlaylists());
     };
 
     fetchPlaylists();

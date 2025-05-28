@@ -5,23 +5,26 @@ import { ResponseTypes } from '@/app/types/enums/ResponseTypes';
 import { HttpMethods } from '@/app/types/enums/HttpMethods';
 import ApiErrorHandler from '@/app/helpers/ApiErrorHandler';
 import { ApiRequestOptions, HttpsRequestOptions } from '@/app/types/interfaces/api';
+import { AuthService } from '@/app/services/auth.service';
+import { Credentials } from '@/app/models/Credentials';
 const defaultHeaders = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
+  'Authorization': '',
 };
 
-// const makeAuthenticatedApiRequest = async (options: ApiRequestOptions) => {
-//   let accessToken: string | null = null;
-//   if (typeof window !== 'undefined') {
-//     accessToken = localStorage.getItem('access_token');
-//   }
-//   if (!accessToken) {
-//     accessToken = await fetchAccessToken();
-//   }
-//   return await makeApiRequest(options, accessToken);
-// }
+const makeAuthenticatedApiRequest = async (options: ApiRequestOptions) => {
+  const credentials = AuthService.getCredentials();
 
-const makeApiRequest = async (options: ApiRequestOptions, token?: string) => {
+  if (!credentials) {
+    console.log('No credentials found');
+    return null;
+  }
+
+  return await makeApiRequest(options, credentials);
+}
+
+const makeApiRequest = async (options: ApiRequestOptions, credentials?: Credentials) => {
   const limiter = new Bottleneck({
     minTime: 1000,
   });
@@ -29,8 +32,9 @@ const makeApiRequest = async (options: ApiRequestOptions, token?: string) => {
   const headersParams = headers || defaultHeaders;
   const responseType = options?.responseType || ResponseTypes.JSON;
 
-  if (token) {
-    headersParams['Authorization'] = `Bearer ${token}`;
+  if (credentials) {
+    const encoded = btoa(`${credentials.username}:${credentials.password}`);
+    headersParams['Authorization'] = `Basic ${encoded}`;
   }
 
   try {
@@ -98,7 +102,8 @@ const makeHttpsRequest = async (options: HttpsRequestOptions) => {
     'Accept': '*/*',
   };
 
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.get('authorization');
+
   if (authHeader) {
     headersParams['Authorization'] = `${authHeader}`;
   }
@@ -163,7 +168,7 @@ const makeHttpsRequest = async (options: HttpsRequestOptions) => {
 const apiService = {
   makeHttpsRequest,
   makeApiRequest,
-  // makeAuthenticatedApiRequest
+  makeAuthenticatedApiRequest
 }
 
 
