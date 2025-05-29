@@ -1,10 +1,7 @@
-'use client';
 import localFont from 'next/font/local';
 import './globals.scss';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '@/app/components/common/header/Header';
-import { PlaylistService } from '@/app/services/playlist.service';
-import usePlayerStore from '@/app/store/PlayerStore';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -21,19 +18,6 @@ export default function RootLayout(
   {
     children,
   }: Readonly<{ children: React.ReactNode; }>) {
-
-  const {setPlaylists} = usePlayerStore();
-  useEffect(() => {
-    const fetchPlaylists = async () => {
-      try {
-        const playlists = await PlaylistService.getAllUserPlaylists();
-        setPlaylists(playlists);
-      } catch (err) {
-        console.error('Failed to fetch playlists:', err);
-      }
-    };
-    fetchPlaylists();
-  }, [setPlaylists]);
 
   return (
     <html lang="en" className="main-background">

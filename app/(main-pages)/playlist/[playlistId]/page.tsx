@@ -6,8 +6,10 @@ import React, { useEffect, useState } from 'react';
 import { Playlist } from '@/app/models/Playlist';
 import SongItem from '@/app/components/song/song-item/SongItem';
 import { PlaylistService } from '@/app/services/playlist.service';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
 
 export default function PlaylistPage() {
+  const {userPlaylists} = usePlaylistsStore();
   const { playlistId } = useParams();
   const [playlist, setPlaylist] = useState<Playlist>();
 
@@ -26,7 +28,7 @@ export default function PlaylistPage() {
     } else {
       getPlaylist(parseInt(playlistId[0]));
     }
-  }, [playlistId]);
+  }, [playlistId, userPlaylists]);
 
   return (
     <div className="flex justify-center pl-4 main-container">

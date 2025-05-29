@@ -1,32 +1,19 @@
 'use client';
 import PlaylistCard from '@/app/components/playlist/playlist-card/PlaylistCard';
-import { useEffect, useState } from 'react';
-import { PlaylistService } from '@/app/services/playlist.service';
-import { Playlist } from '@/app/models/Playlist';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
+import usePlayerStore from '@/app/store/PlayerStore';
 
 export default function Home() {
-  const [allPlaylists, setAllPlaylists] = useState<Playlist[]>([]);
-  const [allUserPlaylists, setAllUserPlaylists] = useState<Playlist[]>([]);
-
-
-  useEffect(() => {
-    if (allPlaylists.length > 0) return;
-
-    const fetchPlaylists = async () => {
-      setAllPlaylists(await PlaylistService.getAllPlaylists());
-      setAllUserPlaylists(await PlaylistService.getAllUserPlaylists());
-    };
-
-    fetchPlaylists();
-  }, []);
+  const {userPlaylists} = usePlaylistsStore();
+  const {playlists} = usePlayerStore();
 
   return (
     <div className="main-container pt-5 pl-5 p">
-      {allUserPlaylists.length > 0 && (
+      {userPlaylists.length > 0 && (
         <div className="pb-4">
           <h1 className="text-3xl font-bold text-white">My Playlists</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 ">
-            {allUserPlaylists.map((playlist) => (
+            {userPlaylists.map((playlist) => (
               <PlaylistCard key={playlist.id} playlist={playlist} />
             ))}
           </div>
@@ -35,7 +22,7 @@ export default function Home() {
       <div>
         <h1 className="text-3xl font-bold text-white">All Playlists</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 ">
-          {allPlaylists.length > 0 && allPlaylists.map((playlist) => (
+          {playlists.length > 0 && playlists.map((playlist) => (
             <PlaylistCard key={playlist.id} playlist={playlist} />
           ))}
         </div>

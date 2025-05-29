@@ -1,5 +1,7 @@
 import { HttpMethods } from '@/app/types/enums/HttpMethods';
 import ApiService from '@/app/services/api.service';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
+import usePlayerStore from '@/app/store/PlayerStore';
 
 const getAllPlaylists = async () => {
   return (await ApiService.makeApiRequest({
@@ -32,6 +34,7 @@ const createPlaylist = async (playlistData: { name: string, imageKey?: string })
     method: HttpMethods.POST,
     body: playlistData,
   });
+  await updateStores();
 };
 
 const addSong = async (playlistId: number, songId: number) => {
@@ -39,6 +42,7 @@ const addSong = async (playlistId: number, songId: number) => {
     url: `/api/playlist/${playlistId}/song/${songId}`,
     method: HttpMethods.POST,
   });
+  await updateStores();
 }
 
 const removeSong = async (playlistId: number, songId: number) => {
@@ -46,6 +50,7 @@ const removeSong = async (playlistId: number, songId: number) => {
     url: `/api/playlist/${playlistId}/song/${songId}`,
     method: HttpMethods.DELETE,
   });
+  await updateStores();
 }
 
 const removePlaylist = async (playlistId: number) => {
@@ -54,6 +59,12 @@ const removePlaylist = async (playlistId: number) => {
     method: HttpMethods.DELETE,
     headers: {}
   });
+  await updateStores();
+}
+
+const updateStores = async () => {
+  usePlaylistsStore.getState().setUserPlaylists(await getAllUserPlaylists());
+  usePlayerStore.getState().setPlaylists(await getAllPlaylists());
 }
 
 export const PlaylistService = {
@@ -64,5 +75,6 @@ export const PlaylistService = {
 
   addSong,
   removeSong,
-  removePlaylist
+  removePlaylist,
+  updateStores
 };

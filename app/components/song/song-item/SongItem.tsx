@@ -6,6 +6,7 @@ import usePlayerStore from '@/app/store/PlayerStore';
 import { formatDate } from '@/app/helpers/utils';
 import UpdateRightClickModal from '@/app/components/right-click-modal/UpdateRightClickModal';
 import { PlaylistService } from '@/app/services/playlist.service';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
 
 interface SongProps {
   index: number;
@@ -14,7 +15,7 @@ interface SongProps {
 }
 
 const SongItem: React.FC<SongProps> = ({ song, index, playlistId }) => {
-  const { getPlaylists } = usePlayerStore();
+  const { getUserPlaylists } = usePlaylistsStore();
 
   const { curPlaylistId, curSongId, setCurSongId, setCurPlaylistId } = usePlayerStore();
   const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
@@ -54,7 +55,7 @@ const SongItem: React.FC<SongProps> = ({ song, index, playlistId }) => {
             <li onClick={() => setShowPlaylistMenu(!showPlaylistMenu)}>
               <span className="hover:font-semibold" >add to playlist</span>
               <div className="mt-2 text-start">
-                {showPlaylistMenu && getPlaylists().map((playlist, index) => (
+                {showPlaylistMenu && getUserPlaylists().map((playlist, index) => (
                   <div
                     key={playlist.id}
                     className="hover:font-semibold"

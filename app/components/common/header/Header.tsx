@@ -12,10 +12,11 @@ import RecommendBtn from '@/app/components/recommendations/RecommendBtn';
 import useAuthStore from '@/app/store/AuthStore';
 import RightClickModal from '@/app/components/right-click-modal/RightClickModal';
 import { PlaylistService } from '@/app/services/playlist.service';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
 
 export default function Header() {
   const { credentials } = useAuthStore();
-  const { getPlaylists } = usePlayerStore();
+  const { userPlaylists } = usePlaylistsStore();
   const [auth, setAuth] = useState(false);
   const [songs, setSongs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -94,7 +95,7 @@ export default function Header() {
                 <RightClickModal key={song?.songKey} menuContent={(
                   <div className="bg-[#4a4f57] shadow-lg rounded-md min-w-24 px-2">
                     <ul className="space-y-2 text-center">
-                      {getPlaylists().map((playlist) => (
+                      {userPlaylists.map((playlist) => (
                         <li key={playlist.id}>
                           <button
                             className="hover:text-white w-full p-1"

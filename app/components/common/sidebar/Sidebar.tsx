@@ -7,29 +7,19 @@ import { Routes } from '@/app/helpers/routes';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { Playlist } from '@/app/models/Playlist';
 import { PlaylistService } from '@/app/services/playlist.service';
 import CreatePlaylistBtn from '@/app/components/playlist/create-playlist/CreatePlaylistBtn';
 import RightClickModal from '@/app/components/right-click-modal/RightClickModal';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
 
 export default function Sidebar() {
   const { playlistId } = useParams();
+  const {userPlaylists} = usePlaylistsStore();
   const [selectedPlaylist, setSelectedPlaylist] = useState<number>(0);
-  const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
   const handleRemovePlaylist = async (id: number) => {
     await PlaylistService.removePlaylist(id);
   }
-
-  useEffect(() => {
-    if (playlists.length > 0) return;
-
-    const fetchPlaylists = async () => {
-      setPlaylists(await PlaylistService.getAllUserPlaylists());
-    };
-
-    fetchPlaylists();
-  }, [playlists.length]);
 
   useEffect(() => {
     if (!playlistId) {
@@ -51,7 +41,7 @@ export default function Sidebar() {
         <CreatePlaylistBtn />
       </div>
       <ul className={`mt-2 pl-2 cursor-pointer ${styles.nav}`}>
-        {playlists.length > 0 && playlists.map((item) => (
+        {userPlaylists.length > 0 && userPlaylists.map((item) => (
           <RightClickModal key={item.id} menuContent={(
             <div className="bg-[#4a4f57] shadow-lg rounded-md min-w-24 px-2">
               <ul className="space-y-2 text-center">
