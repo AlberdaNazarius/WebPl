@@ -4,15 +4,18 @@ import { Routes } from '@/app/helpers/routes';
 import styles from './Header.module.scss';
 import clsx from 'clsx';
 import { AuthService } from '@/app/services/auth.service';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SongService } from '@/app/services/song.service';
 import { Song } from '@/app/models/Song';
 import usePlayerStore from '@/app/store/PlayerStore';
 import RecommendBtn from '@/app/components/recommendations/RecommendBtn';
 import useAuthStore from '@/app/store/AuthStore';
+import RightClickModal from '@/app/components/right-click-modal/RightClickModal';
+import { PlaylistService } from '@/app/services/playlist.service';
 
 export default function Header() {
   const { credentials } = useAuthStore();
+  const { getPlaylists } = usePlayerStore();
   const [auth, setAuth] = useState(false);
   const [songs, setSongs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,6 +34,10 @@ export default function Header() {
 
   const handleLogout = async () => {
     await AuthService.logout();
+  };
+
+  const addSongToPlaylist = async (playlistId: number, songId: number) => {
+    await PlaylistService.addSong(playlistId, songId);
   };
 
   useEffect(() => {
@@ -64,7 +71,7 @@ export default function Header() {
   return (
     <header className="m-0 px-4 py-4 bg-[#0a0a0a] fixed top-0 left-0 right-0 h-[3.75rem] z-10">
       <div className="flex justify-between items-center">
-        <div className='flex gap-2 items-center'>
+        <div className="flex gap-2 items-center">
           <RecommendBtn />
           <Link href={Routes.Home}>
             <h5 className="text-lg hover:text-white">
@@ -84,13 +91,29 @@ export default function Header() {
             <div
               className="absolute bg-[#34373d] rounded left-0 right-0 pt-3 pb-1 px-3 mt-1 max-h-[160px] overflow-y-auto">
               {filteredSongs.map((song) => (
-                <div
-                  key={song?.songKey}
-                  onClick={() => setSelectedSong(song)}
-                  className="bg-[#4a4f57] py-1 mb-2 rounded-lg text-center hover:text-white cursor-pointer"
-                >
-                  {song.name}
-                </div>
+                <RightClickModal key={song?.songKey} menuContent={(
+                  <div className="bg-[#4a4f57] shadow-lg rounded-md min-w-24 px-2">
+                    <ul className="space-y-2 text-center">
+                      {getPlaylists().map((playlist) => (
+                        <li key={playlist.id}>
+                          <button
+                            className="hover:text-white w-full p-1"
+                            onClick={() => addSongToPlaylist(playlist.id, song.id)}
+                          >
+                            {playlist.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}>
+                  <div
+                    onClick={() => setSelectedSong(song)}
+                    className="bg-[#4a4f57] py-1 mb-2 rounded-lg text-center hover:text-white cursor-pointer"
+                  >
+                    {song.name}
+                  </div>
+                </RightClickModal>
               ))}
             </div>
           }

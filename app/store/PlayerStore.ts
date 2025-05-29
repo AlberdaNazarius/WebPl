@@ -13,6 +13,7 @@ interface PlayerState {
   setCurSongId: (id: number) => void;
   setCurPlaylistId: (id: number) => void;
   setPlaylists: (playlists: Playlist[]) => void;
+  getPlaylists: () => Playlist[];
   getCurrentPlaylist: () => Playlist | undefined;
   getCurSong: () => Song | undefined;
   nextSong: () => void;
@@ -68,6 +69,7 @@ const usePlayerStore = create<PlayerState>((set, get) => ({
     };
     return { selectedSong: modSong }
   }),
+  getPlaylists: () => get().playlists,
   setPlaylists: (playlists: Playlist[]) => set(() => ({ playlists })),
   setCurSongId: (id: number) => set(() => ({
     curSongId: id,
