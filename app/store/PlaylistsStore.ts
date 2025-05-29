@@ -6,6 +6,7 @@ interface PlaylistsState {
 
   getUserPlaylists: () => Playlist[];
   setUserPlaylists: (playlists: Playlist[]) => void;
+  clearUserPlaylists: () => void;
 }
 
 const usePlaylistsStore = create<PlaylistsState>((set, get) => ({
@@ -17,6 +18,9 @@ const usePlaylistsStore = create<PlaylistsState>((set, get) => ({
   setUserPlaylists: (playlists: Playlist[]) => set(() => ({
     userPlaylists: playlists,
   })),
+  clearUserPlaylists: () => set(() => ({
+    userPlaylists: [],
+  }))
 }));
 
 export default usePlaylistsStore;

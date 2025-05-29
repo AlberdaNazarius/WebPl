@@ -2,6 +2,7 @@ import useAuthStore from '@/app/store/AuthStore';
 import { Credentials } from '@/app/models/Credentials';
 import ApiService from '@/app/services/api.service';
 import { HttpMethods } from '@/app/types/enums/HttpMethods';
+import usePlaylistsStore from '@/app/store/PlaylistsStore';
 
 const isAuthenticated = () => {
   const  credentials = useAuthStore.getState().getCredentials();
@@ -59,6 +60,7 @@ const signup = async (credentials: Credentials) => {
 
 const logout = async () => {
   useAuthStore.getState().clearCredentials();
+  usePlaylistsStore.getState().clearUserPlaylists();
 }
 
 export const AuthService = {
