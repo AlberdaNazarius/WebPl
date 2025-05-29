@@ -1,11 +1,13 @@
-import axios from 'axios';
 import { RecommendationRequest } from '@/app/models/RecommendationRequest';
+import { HttpMethods } from '@/app/types/enums/HttpMethods';
+import ApiService from '@/app/services/api.service';
 
 const getRecommendations = async (request: RecommendationRequest) => {
-   const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_HOST_API}/recommendations`,
-    request
-  );
+  const response = await ApiService.makeApiRequest({
+    url: `/api/recommendations`,
+    method: HttpMethods.POST,
+    body: request
+  });
 
   const rawRecommendations = response.data;
   return rawRecommendations
