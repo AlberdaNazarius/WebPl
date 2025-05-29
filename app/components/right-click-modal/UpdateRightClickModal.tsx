@@ -10,9 +10,10 @@ interface RightClickModalProps {
   backdropClassName?: string;
   disabled?: boolean;
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
+  onDoubleClick?: (e: React.MouseEvent) => void;
 }
 
-const RightClickModal: React.FC<RightClickModalProps> = (
+const UpdateRightClickModal: React.FC<RightClickModalProps> = (
   {
     children,
     menuContent = (
@@ -38,6 +39,7 @@ const RightClickModal: React.FC<RightClickModalProps> = (
     backdropClassName = 'fixed inset-0 z-[999]',
     disabled = false,
     containerProps = {},
+    onDoubleClick,
   }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -111,10 +113,11 @@ const RightClickModal: React.FC<RightClickModalProps> = (
   }, [isOpen, position]);
 
   return (
-    <div
+    <tr
       className={`relative ${className}`}
       onContextMenu={handleContextMenu}
       {...containerProps}
+      onDoubleClick={onDoubleClick}
     >
       {children}
 
@@ -134,8 +137,8 @@ const RightClickModal: React.FC<RightClickModalProps> = (
           </div>
         </>
       )}
-    </div>
+    </tr>
   );
 };
 
-export default RightClickModal;
+export default UpdateRightClickModal;
