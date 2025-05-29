@@ -52,6 +52,7 @@ const removePlaylist = async (playlistId: number) => {
   await ApiService.makeAuthenticatedApiRequest({
     url: `/api/playlist/${playlistId}`,
     method: HttpMethods.DELETE,
+    headers: {}
   });
 }
 

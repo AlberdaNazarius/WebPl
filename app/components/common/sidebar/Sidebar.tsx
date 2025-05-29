@@ -5,22 +5,27 @@ import clsx from 'clsx';
 import { SIDEBAR_TITLE } from '@/app/helpers/constants';
 import { Routes } from '@/app/helpers/routes';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Playlist } from '@/app/models/Playlist';
 import { PlaylistService } from '@/app/services/playlist.service';
 import CreatePlaylistBtn from '@/app/components/playlist/create-playlist/CreatePlaylistBtn';
+import RightClickModal from '@/app/components/right-click-modal/RightClickModal';
 
 export default function Sidebar() {
   const { playlistId } = useParams();
   const [selectedPlaylist, setSelectedPlaylist] = useState<number>(0);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
+  const handleRemovePlaylist = async (id: number) => {
+    await PlaylistService.removePlaylist(id);
+  }
+
   useEffect(() => {
     if (playlists.length > 0) return;
 
     const fetchPlaylists = async () => {
-       setPlaylists(await PlaylistService.getAllUserPlaylists());
+      setPlaylists(await PlaylistService.getAllUserPlaylists());
     };
 
     fetchPlaylists();
@@ -47,18 +52,32 @@ export default function Sidebar() {
       </div>
       <ul className={`mt-2 pl-2 cursor-pointer ${styles.nav}`}>
         {playlists.length > 0 && playlists.map((item) => (
-          <li
-            key={item.id}
-            className={clsx(
-              selectedPlaylist === item.id ? 'font-bold text-white' : '',
-              'w-full overflow-hidden mb-1',
-            )}
-          >
-            <Link className="block w-full text-ellipsis overflow-hidden whitespace-nowrap"
-                  href={`${Routes.Playlist}/${item.id}`}>
-              {item.name}
-            </Link>
-          </li>
+          <RightClickModal key={item.id} menuContent={(
+            <div className="bg-[#4a4f57] shadow-lg rounded-md min-w-24 px-2">
+              <ul className="space-y-2 text-center">
+                <li>
+                  <button
+                    className="hover:text-white w-full p-1"
+                    onClick={() => handleRemovePlaylist(item.id)}>
+                    remove
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}>
+            <li
+              key={item.id}
+              className={clsx(
+                selectedPlaylist === item.id ? 'font-bold text-white' : '',
+                'w-full overflow-hidden mb-1',
+              )}
+            >
+              <Link className="block w-full text-ellipsis overflow-hidden whitespace-nowrap"
+                    href={`${Routes.Playlist}/${item.id}`}>
+                {item.name}
+              </Link>
+            </li>
+          </RightClickModal>
         ))}
       </ul>
     </aside>

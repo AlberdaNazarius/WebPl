@@ -114,9 +114,13 @@ const makeHttpsRequest = async (options: HttpsRequestOptions) => {
       url: url,
       headers: headersParams,
       responseType: options?.responseType || ResponseTypes.JSON,
-      ...(req.body && {data: await req.json()}),
+      ...(req.body && method !== HttpMethods.DELETE && {data: await req.json()}),
       maxRedirects: 0,
     });
+
+    if (response.status === 204) {
+      return new Response(null, { status: 204 });
+    }
 
     console.log('Response from backend:', response.data);
     return response.data;
